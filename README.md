@@ -17,7 +17,7 @@
 
 Hassan Abid 하산 아비드, Jin Park 박진우, Soeun Lee 이소은,Sujin Lee 이수진, Joeun Park 박조은, Minseon Kim 김민선 , Downy Song 송다운, John Choi 최장호,Jiho Jang 장지호 
 
-## What will you learn from this tutorial? 튜토리얼에서 무엇을 배우게 되나요? 
+## 튜토리얼에서 무엇을 배우게 되나요? 
 This tutorial will walk you through all the steps in creating a cupcake menu site. By the end, you'll be confident enough to make your website!
 
 ## Requirements 준비사항

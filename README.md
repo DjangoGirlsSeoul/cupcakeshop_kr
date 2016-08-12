@@ -36,6 +36,7 @@ This tutorial will walk you through all the steps in creating a cupcake menu sit
 튜토리얼 진행은 **영어로** 진행 합니다.
 
 ### 튜토리얼의 목적
+#### Basic
 - 장고프로젝트를 시작하기 전에 가상환경을 올바른 방법으로 다룰 수 있습니다.
 - 모델에 이미지필드를 생성할 수 있습니다.
 - 장고 관리자의 역할과 기능에 대해 이해할 수 있습니다.
@@ -44,6 +45,15 @@ This tutorial will walk you through all the steps in creating a cupcake menu sit
 - Git/Github의 기본 명령어로 프로젝트를 Github에 배포할 수 있습니다.
 - PythonAnywhere 서버에서 `DEBUG=False mode`와 함께 사이트를 배포할 수 있습니다.
 - 장고 사이트를 위한 간단한 테스트를 작성할 수 있습니다.
+
+### Advance
+
+장고 또는 웹 개발의 경험이 있는 분 또는 더 어려운 내용을 다뤄보신 분들은 심화 내용을 학습할 수 있습니다! 심화 부분은 아래 내용을 포함하고 있습니다.:
+* Django Auth (로그인과 가입하기)
+* Django Model Relationships (댓글)
+* Django Rest-framework
+* Continuous Integration and coverage test (Travis-CI and Coveralls).
+* Micrsoft's `Azure` 배포 가이드
 
 ### 따라하기
 그럼 다음 [링크](https://www.gitbook.com/book/djangogirlsseoul/djangocupcakeshop_ko/details)에서 차근차근 하나씩 따라가 봅시다.

@@ -513,7 +513,7 @@ application = StaticFilesHandler(get_wsgi_application())
 ```
 > `MY_SECRET_KEY`에 실제 비밀키를 변경해주세요!
 
-잘했습니다! 재실행 버튼을 누ㄹ면 어플리케이션으로 이동할 거에요. 페이지 맨 위쪽에 링크가 있어요.
+잘했습니다! 재실행 버튼을 누르면 어플리케이션으로 이동할 거에요. 페이지 맨 위쪽에 링크가 있어요.
 
 ![](deploy_refresh_3.png)
 

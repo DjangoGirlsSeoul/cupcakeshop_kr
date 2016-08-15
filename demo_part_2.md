@@ -1,8 +1,8 @@
 # Demo Part 2
-## Step 9 Dynamic data in Templates with ORM
->relevant git branch `orm`
+## Step 9 [템플릿의 동적 데이터](http://tutorial.djangogirls.org/en/dynamic_data_in_templates/#dynamic-data-in-templates)
+> `orm` branch 관련 잇어요
 
-a. Get Dynamic data (cupcakes) from database using queryset. Add following code in `menu/views.py` in `cupcake_list` function.
+a. queryset을 이용해서 데이터베이스에 동적데이터(cupcake 정보)를 가져옵니다! `menu/views.py`안에 `cupcake_list` function에 다음과 같은 코드를 추가합니다.
 
 ```python
 from django.shortcuts import render
@@ -15,13 +15,15 @@ def cupcake_list(request):
     
 ```
 
-Above query `Cupcake.objects.all().order_by('-createdAt')` will fetch all the cupcakes from the database in descending order with respect to `createdAt`.
+위의 `Cupcake.objects.all().order_by('-createdAt')` 부분의 query는 데이터베이스에서 `createdAt`기준으로 내림차순으로 모든 컵케이크 정보들을 가져오는 거에요!
 
+> 이 코든는 `menu/list.html`라는 템플릿에서 로드 되고 context에 전달 될 거에요. `context`는 Python 객체들에 dictionary mapping되는 템플릿 변수 이름입니다.
 > That code loads the template called menu/list.html and passes it a context. The `context` is a dictionary mapping template variable names to Python objects.
 
-If we visit the home page, we cannot see the data from database in template. Time to go back to our template and display this QuerySet!
+만약 홈페이지에 방문하면 데이터베이스에서 가져온 데이터들이 템플릿에서 볼수 없을 거에요! 이제 템플릿에서 돌아가서 QuerySet를 보이게 해 볼까요?
 
-b. We will use Django Template Tags to add data from our queryset to template. We will remove the hard-coded cupcakes and replace it with following. 
+b. 템플릿에 queryset으로 가져온 데이터를 추가하기 위해 Django Template Tags를 사용할 거에요. 하드코딩된 컵케이크 코드를 제거 하고 다음과 같이 만들어 보죠!
+
 
 `list.html`
 
@@ -72,13 +74,14 @@ b. We will use Django Template Tags to add data from our queryset to template. W
 {% endblock %}
 
 ```
-Start development server again and visit home page to see the cupcakes from your database appear in template :)
+개발 서버를 다시 시작하고 템플릿에 데이터베이스에서 가져온 컵케이크가 잘 보이는지 홈페이지에서 확인해 보세요! :)
 
+c. 일단 여기에 들어가 보면 한가지 문제가 있어요!. 순서를 매기는데 `오직` 별 한개 밖에 안보이는 거죠. Django Template에서는 Template 안에서 `range`같은 복잡한 파이썬 함수들의 사용을 허용하지 않아요. 그래서 우리는 rating count로 looping도 하고 별 갯수도 추가 하기 위해서 커스텀한  Django Template filter를 추가 할 거에요.
 c. We have one problem that we have to address here. As you can see that `only` one star appears for rating. Django Template doesn't allow usage of complex Python functions in template such as `range`. We have to make a custom Django Template filter for looping over rating count and add number of stars based on it. We are going to create a custom `Django Template Filter`. You can read more about it [here](https://docs.djangoproject.com/en/1.9/howto/custom-template-tags/).
 
-For this purpose, we will create a `templatetags` directory in the same folder with `models.py` and 'views.py'. Don't forget to add `__init__.py` empty file in it. Create a file `menu_extras.py` in `templatetags` folder.
+그래서 `models.py` and `views.py` 파일이 있는 폴더에 `templatetags` 폴더를 만들거에요. 그 디렉토리안에 `__init__.py`라는 빈 파일을 추가 해야 된 다는 것을 잊지 마세요!. 그리고 `templatetags` 폴더안에 `menu_extras.py` 라는 파일을 만들어 보아요.
 
-Following should be your directory structure.
+디렉토리 구조는 다음과 같아야 됩니다.
 
 ```bash
 
@@ -91,8 +94,7 @@ menu/
     views.py
     
 ```
-
-Add following contents to `menu_extras.py`
+`menu_extras.py`안에 다음과 같은 내용을 추가합니다.
 
 ```python
 from django import template
@@ -109,14 +111,13 @@ def get_range(value):
 
 
 ```
-
-and in your template `list.html`, add following after `{% load staticfiles %}`
+`list.html`에는 `{% load staticfiles %}`의 뒷 부분에 다음과 같이 추가 하세요!
 
 ```html
 {% load menu_extras %}
 ```
 
-One last thing left is to add a for loop using our new custom filter. Replace existing `rating` html with following.
+커스텀한 filter를 이용해서 반복문을 돌리려면 마지막으로 추가해야 되는 게 있습니다. html에 `rating`이라는 부분을 다음과 같이 바꿔주세요.
 
 `list.html`
 
@@ -131,15 +132,15 @@ One last thing left is to add a for loop using our new custom filter. Replace ex
 
 ![](orm_cupcakes.png)
 
-Start development server again and visit home page to see the cupcakes from your database appear in template :)
+개발 서버를 다시 시작하고 홈페이지에 들어가 데이터베이스에서 가져온 컵케이크들이 잘 보이는지 확인해 보세요! :)
 
 
-## Step 10 Extend your Application
-> Relevant branch `extend-app`
+## Step 10 프로그램 어플리케이션 확장하기
+> `extend-app` branch와 관련 있어요!
 
-a. Until now we have properly configured the `list.html` template. You can see posts added from admin on homepage. Good job! Now we want user to see more details about a `Cupcake` once they click the View Button.  We will go back to the basics and repeat the steps we did for configuring `list.html` template.
+a. 지금까지 `list.html` 템플릿을 적절하게 바꾸는 것을 했는데요. 홈페이지에서 어드민에서 추가한 post들을 볼수 있으면 잘한 거에요! 잘했어요! 이제 사용자들이 버튼을 클릭해서 `Cupcake`에 대한 자세한 정보를 보는 기능을 만들고 싶어요! 기본으로 돌아가서 `list.html` 템플릿을 구성하던 단계를 다시 반복할 거에요.
 
-First of all, we will add a new `url` which will point to a single cupcake. Add the following code to `menu/urls.py` file below `url(r'^$',views.cupcake_list,name="cupcake_list"),`
+우선 컵케이크 하나를 가리키는 `url`를 추가하고 `menu/urls.py`파일에 `url(r'^$',views.cupcake_list,name="cupcake_list")` 아래에 `menu/urls.py` 이 부분을 추가해 볼거에요!
 
 ```python
 url(r'^cupcake/(?P<pk>\d+)/$',views.cupcake_detail,name="cupcake_detail")
@@ -237,9 +238,10 @@ Start development server again, and click on `view` button in home page to see d
 
 ![](extend_detail.png)
 
+a. menu에 템플릿 링크 만들기 그리고 menu 상세 페이지에 뷰 추가하기
 
 
-## Step 11 Django Forms
+## Step 11 (Django Forms 폼)
 > Relevant branch `forms`
 
 The final thing we want to do on our website is create a nice way to add cupcakes by registered users. Django's admin is cool, but it is rather hard to customize and make pretty. With forms we will have absolute power over our interface - we can do almost anything we can imagine!
@@ -369,7 +371,7 @@ Congrats :) We are almost done with development of our site!
 
 Finally, it's time to have cupcake. There is one more thing that we have to do. So hang in there...
     
-## Step 12 Deploy your site on PythonAnywhere
+## Step 12 Deploy your site on PythonAnywhere [배포하기](http://tutorial.djangogirls.org/ko/deploy/#github에서-pythonanywhere로-코드-가져오기)
 
 > Relevant branch `deploy`
 
@@ -533,10 +535,5 @@ a. Sort cupcakes by `highest` and `lowest` price
 > Hint : Make a url like `cupcakes/price/hightolow`, add a corresponding view function. Get the data from Database, convert price `string` to int and sort using python. You can use the same template `list.html` for this homework. 
 
 b. Sort cupcakes by `highest` rating
-
-
-## Remarks
-
-If you have reached this far! Well done and Congrats :) You can move to [Advance](advance.md) part, if you have enough left-over time :)
 
 

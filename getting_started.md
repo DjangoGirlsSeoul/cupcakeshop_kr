@@ -2,7 +2,7 @@
 
 ##이 튜토리얼을 찍고 내 리퍼지토리로 복사하세요.
 
-오른쪽 위에 있는 Fork 버튼을 누릅니다 [[link](https://github.com/djangogirlscodecamp/djangocupcakeshop)]
+오른쪽 위에 있는 Fork 버튼을 누릅니다 [[link](https://github.com/djangogirlsseoul/djangocupcakeshop)]
 
 ![](fork_djangocupcakeshop.png)
 

@@ -300,10 +300,10 @@ def user_profile(request):
 <a href="{% url "accounts:register" %}" class="btn btn-primary navbar-btn">Register</a>
 ```
 
-Secondly, add a view function `register` to handle register get/post request.
+두 번째로, 뷰에 `register`함수를 만들어 get/post 요청을 등록하도록 해봅시다.
 
 `accounts/views.py`
-Add the following import lines
+import 부터 시작하는 아래 내용을 추가하세요.
 
 ```python
 from django.http import HttpResponseRedirect
@@ -311,7 +311,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login
 ```
 
-followed by
+아래 내용을 이어서 추가하세요.
 
 ```python
 def register(request):
@@ -551,10 +551,76 @@ def cupcake_detail(request,pk):
 
 > Tip :  PythonAnywhere 또는 Azure 배포한다음 댓글 기능을 다시 테스트 해보세요. `migrate`명령어를 사용해야 합니다!
 
-3- mySQL로 데이터베이스 변경하기
+## 3. Travis CI와 Coveralls
 
-4- Admin 커스터마이징하기
+코멘트를 커밋하기 전에 테스트를 하고 그 다음에 머지 하세요.
 
-5- Travis CI과 Coveralls (시간이 허락된다면!)
+> Thankfully, Continuous Integration can save the day. Continuous Integration, often abbreviated to just CI, is the process of automatically building and running tests whenever a change is committed.
+
+We are going to use Travis-CI which is free for open-source projects. Signup for free account on https://travis-ci.org using your Github account. Sync your github repos and enable TRAVIS-CI for project.
+
+![](travis_1.png)
+
+Create a file `.travis.yml` in project root directory. Before adding any contents to file. let's complete the signup process for https://coveralls.io. Once you signedup successfully, you can add Github repo.
+
+>Coveralls is a web service to help you track your code coverage over time, and ensure that all your new code is fully covered.
+
+![](coveralls.png)
+
+Add following contents to your `.travis.yml` file.
+
+```bash
+language: python
+python:
+  - '3.5'
+branches:
+  only:
+    - 'advance'
+    - 'rest-api'
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+script:
+  - python manage.py test
+  - coverage run --source=djangocupcakeshop,menu,accounts manage.py test
+notifications:
+  email: false
+after_success:
+  coveralls
+
+```
+
+Make sure to add/change `branches` field. In our case, we are adding advance and rest-api branches only.
+
+Let's add nice badges for showing status of build and coverage in our README. Add markup from Travis and Coveralls to your project's RADME.md. Here is one sample
+
+[![Build Status](https://travis-ci.org/DjangoGirlsSeoul/djangocupcakeshop.svg?branch=advance)](https://travis-ci.org/DjangoGirlsSeoul/djangocupcakeshop)
+[![Coverage Status](https://coveralls.io/repos/github/DjangoGirlsSeoul/djangocupcakeshop/badge.svg?branch=advance)](https://coveralls.io/github/DjangoGirlsSeoul/djangocupcakeshop?branch=advance)
+
+Now commit your changes and push to Github. It will automatically initiate a travis-cui build and coverage test. You can find similar reports as below
+
+![](travis_ci_build.png)
 
 
+![](coveralls_report.png)
+
+## 4. Change database to MySQL
+You can use other databases like Postgres or MySQL, below is the settings for MySQL.
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+````
+You have to install `mysqlclient` to use it.
+
+## 5. Custom Admin
+You can cusotmize the Django admin.  Refer to [official tutorial](https://docs.djangoproject.com/en/1.10/intro/tutorial07/) guide for some examples.

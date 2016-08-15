@@ -155,7 +155,7 @@ a. 홈페이지에 url을 추가해야합니다. 먼저, 메뉴 앱에 홈페이
 ```python
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'', include('menu.urls')),
+    url(r'', include('menu.urls',namespace='menu')),
 ]
 ```
 

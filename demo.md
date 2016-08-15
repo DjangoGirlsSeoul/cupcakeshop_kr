@@ -1,4 +1,4 @@
-# 데모
+# 데모 1
 ## Step 1. 설치하기
 
 파이썬 3.5.x, Git, 코드에디터(atom,sublime text, visual code 중 하나)가 반드시 설치되어야 합니다.
@@ -24,36 +24,10 @@
 ## Step 3. 설정 변경하기
 프로젝트를 생성하고나서 `settings.py`에 있는 `TIME_ZONE`을 변경해야 합니다. `djangocupcakeshop/djangocupcakeshop/settings.py`에서 `TIME_ZONE`을 찾아 변경하세요. 웹 사이트가 어디서 운영(host)되고 있는지 알려주는 거랍니다. 서울이라면, 아래처럼 변경해주세요.
 
-
  ```bash
  $ pip install django
  ```
 
- Once we install django and any other required package, it is good idea to save that in a `requirements.txt` file.
-
- ```bash
- $ pip freeze > requirements.txt
- ```
-
-## Step 2 Start Project
- Start Django project
-
- ```bash
- $ django-admin startproject djangocupcakeshop
- ```
-
- Django 프로젝트 시작하기
-
- ```bash
- $ django-admin startproject djangocupcakeshop
- ```
-
-## Step 3 Change Settings
-After creating the project, we have to change `TIME_ZONE` in `settings.py` file. You can find it under `djangocupcakeshop/djangocupcakeshop/settings.py` folder. It depends on where your site is hosted. For Seoul, we will change it the following.
-
-```python
-TIME_ZONE = "Asia/Seoul"
-```
 `STATIC_URL` 부분 아래에 동적파일과 미디어파일(images, css, javascript) 경로도 아래처럼 설정해주세요.
 
 ```python
@@ -77,7 +51,6 @@ $ python manage.py runserver
 
 ![](step_3_runserver.png)
 
-
 ## Step 4. Django App/Model
 > Relevant git branch `model`
 
@@ -99,10 +72,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'menu',
 )
-
 ```
 
-#### Demo. 여기서부터 시작하세요.
+#### Demo. 지금부터 실습을 시작합니다.
 
 b. 메뉴 앱 모델를 생성해봅시다. 여기서부터는 튜토리얼 그대로 따라하세요. `Cupcake`에 필요한 것은 `이름(name), 평가(rating), 가격(price), 이미지(image), 작성자(writer), 작성일(createdAt)`의 정보입니다. 이미지필드(`ImageField`)에서 필요한 것은 `Pillow`패키지가 설치되어야합니다. 아래 명령어를 실행해 설치합시다.
 
@@ -120,16 +92,13 @@ and then update requirements file by
 먼저 import 합시다.
 
 ```python
-
 from django.contrib.auth.models import User
 from django.utils import timezone
-
 ```
 
 아래 Cupcake 클래스를 그대로 따라해 봅시다.
 
 ```python
-
 class Cupcake(models.Model):
     name = models.CharField(max_length=200)
     price = models.CharField(max_length=20)
@@ -144,25 +113,14 @@ class Cupcake(models.Model):
 
  c. 모델을 생성한 후에, 아래 명령어를 실행해 실제 데이터 베이스를 생성합니다.
 
-
  ```bash
-
  $ python manage.py makemigrations menu
  $ python manage.py migrate
-
-
  ```
 
- > makemigrations을 실행하면, 장고에게 모델에 수정할 것이 있는지 확인하라고 말해주는 것입니다. (이 경우에, 새로운 모델이 생성이 되었다는 것을 알려줍니다) 그리고 수정 내용을 migration하게 됩니다.
-
-
- ```
-
- > By running makemigrations, you’re telling Django that you’ve made some changes to your models (in this case, you’ve made new ones) and that you’d like the changes to be stored as a migration.
->>>>>>> 0d638dce3cef986977c116ae84a0d7be7979cb8f
- > At this point after `makemigrations` you can test your model by executing `python manage.py test`. We have provided a test case already for your convenience!
- > In Summary `makemigrations` command make migrations for changes in model and `migrate` actually applies those changes in database
-
+ > `makemigrations`을 실행하면, 장고에게 모델에 수정할 것이 있는지 확인하라고 말해주는 것입니다. (이 경우에, 새로운 모델이 생성이 되었다는 것을 알려줍니다) 그리고 수정 내용을 migration하게 됩니다.
+ >`makemigrations` 이후에 `python manage.py test`을 실행하면 수정한 데이터 베이스가 잘 반영되었는지 테스트할 수 있습니다.
+ > `makemigrations` 명령어는 모델의 수정할 내용을 알려주고 `migrate`는 실제로 이를 데이터베이스에 반영하는 것을 말합니다.
 
 ## Step 5. Django 관리자
 > Relevant git branch `admin`
@@ -175,13 +133,14 @@ from .models import Cupcake
 
 admin.site.register(Cupcake)
 ```
-b. Now its time to add few cupcakes from the site. But in order to do so, you would need admin account. Create it by executing following command in terminal/command prompt and follow the instructions.
+
+b. 이제 사이트에 컵케이크 메뉴를 더 추가해 봅시다. 이를 하기 위해, 관리자 계정이 필요한데요. 아래 설명을 읽어보면서 명령 프롬프트에 실행합시다.
 
 ```bash
 python manage.py createsuperuser
 ```
 
-Start developement server again `python manage.py runserver`. Visit [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) to login and add cupcakes!
+`python manage.py runserver`명령어를 실행해 서버를 다시 시작해봅시다. [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)에 접속해 로그인하고 컵케이크를 추가하세요!
 
 ![](admin_1_main.png)
 
@@ -191,18 +150,16 @@ Start developement server again `python manage.py runserver`. Visit [http://127.
 ## Step 6. Django Urls
 > Relevant git branch `django-urls`
 
-a. We have to point a url towards our home page. Firstly, we will point the home page URL to our menu app. Add following to `djangocupcakeshop/urls.py`.
+a. 홈페이지에 url을 추가해야합니다. 먼저, 메뉴 앱에 홈페이지 URL를 추가합시다. `djangocupcakeshop/urls.py` 폴더를 열어 아래 내용을 작성하세요.
 
 ```python
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('menu.urls')),
 ]
-
 ```
 
-
-b. Secondly, we will point URL to corresponding `view` function in our menu app. Create a file in `menu` directory and name it `urls.py`. Add following code
+b. 다음으로, 아래 `view` 함수에 URL을 추가로 넣을 거에요. `menu`디렉터리안에 `urls.py`새 파일을 만드세요. 그리고 아래 코드를 넣으세요.
 
 ```python
 from django.conf.urls import url
@@ -212,13 +169,13 @@ urlpatterns = [
     url(r'^$',views.cupcake_list,name="cupcake_list"),
 ]
 ```
-For now if you run your server and visit the home page, It will show an error. If you pay attention to the error, it is about absence of views function `cupcake_list`. Don't worry, we will create this function in the next step.
+이제 서버를 실행해 홈페이지에 접속하면, 에러가 발생할 거에요. 에러 내용을 잘 살펴보면 `cupcake_list` 뷰 함수가 없다는 것을 알게 될 거에요. 다음 번에 뷰 함수를 추가할 거니 걱정하지 마세요.
 
 ![](urls_error.png)
 
 
-## Step 7 Django Views
-In Django, web pages and other content are delivered by views. Each view is represented by a simple Python function. Django will choose a view by examining the URL that’s requested. We have already added `url` for home page in previous step. We are going to add our first view function `cupcakes_list` in `menu/views.py` file.
+## Step 7. Django Views
+장고에서는 view를 통해 웹 페이지와 콘텐츠를 전달해줍니다. 각각 뷰는 파이썬 함수를 통해 구현되는데요. 장고는 URL을 통해서 특정 view를 선택해 이를 보여줍니다. 앞에서 우리는 홈페이지 `url`을 만들고 이를 보여줬는데요. `menu/views.py`파일에 `cupcakes_list`리스트 함수를 만들 거에요.
 
 ```python
 from django.shortcuts import render
@@ -228,15 +185,16 @@ def cupcake_list(request):
     return render(request,"menu/list.html",{})
 ```
 
-Start your server and visit the home page [http://127.0.0.1:8000](http://127.0.0.1:8000) Oops! You will come across following error!. Let's fix this in next step.
+서버를 실행해서 홈페이지로 접속해보세요. [http://127.0.0.1:8000](http://127.0.0.1:8000) 이런! 에러가 발생했네요! 다음 단계에서 이를 찾아봅시다.
 
 ![](views_error.png)
 
 
-## Step 8 Django Templates
+## Step 8. Django Templates
 
-a. If you look at the error in previous step, you will notice that is complaining about missing template `menu/list.html`. Django template is an html page where you show your data to user which was stored in database. First, create a directory called templates in your menu directory. Django will look for templates in there.
-Within the templates directory you have just created, create another directory called menu, and within that create a file called list.html. In other words, your template should be at menu/templates/menu/list.html. We will use bootstrap for creating html page. You can find some example templates [here](http://getbootstrap.com/getting-started/). To customize our template we created a `style.css` file and added few nice images! You can find free cupcake images from [here](https://www.pexels.com/search/cupcake/). For adding static files, create a folder `static` in menu directory. Then create a menu folder. In menu folder, create two folders to hold our css and image files. So your directory sturcture for css will be `menu/static/menu/css` and images `menu/static/menu/images`
+a. 앞에서 발생한 에러를 보면, `menu/list.html` 템플릿이 없는 것을 알 수 있을 거에요. 장고 템플릿은 html페이지 인데, 데이터베이스에 저장된 데이터를 사용자에게 보여준답니다. 먼저 `menu`디렉터리에 `templates`폴더를 만드세요. `templates`폴더에서 해당 템플렛을 찾을 거에요. 장고는 여기서 `templates`폴더에서 해당 템플렛을 찾을 거에요. 그 안에 다시 `menu`디렉터리를 만드세요. (`menu/templates/menu`) 이제 `list.html` 파일을 만드세요. (`menu/templates/menu/list.html.`)
+
+우리는 부트스트랩을 사용해 html 페이지를 만들 거에요. [여기](http://getbootstrap.com/getting-started/)에서 부트스트랩 활용 예제들을 확인할 수 있어요. `style.css`파일에서 템플릿을 수정하고 멋있는 이미지들을 추가할 수 있어요! 무료 이미지를 찾고 싶으면 [이 곳](https://www.pexels.com/search/cupcake/)을 이용해보세요. 동적 파일을 추가하려면, `menu`폴더 안에 `static`폴더를 만드세요. 그리고 다시 `menu`폴더를 만드시고요. 이 폴더 안에 css와 이미지 파일들을 넣으면 됩니다. css파일 경로는 `menu/static/menu/css`, 이미지 경로는 `menu/static/menu/images`가 되겠죠.
 
 `list.html`
 
@@ -439,9 +397,9 @@ a {
 
 
 ```
-In `menu/static/images` folder, add three cupcakes images and make sure that names are same as the ones in `list.html` file.
+`menu/static/images`폴더 안에, 컵케이크 이미지 세 개를 추가하고요. 이미지 파일 이름은 `list.html`파일과 일치해야하니 주의하세요.
 
-b. We have to create a detail page for our `cupcake` where we can show more information such as price and user who uploaded it. Let's create a `detail.html` in the same folder as `list.html`
+b. 이제 컵케이크(`cupcake`)의 가격, 리뷰를 보여주는 상세 페이지를 만들어야 합니다. `list.html`가 있는 동일한 디렉터리에 `detail.html`파일을 만드세요.
 
 ```html
 {% load staticfiles %}
@@ -539,14 +497,14 @@ b. We have to create a detail page for our `cupcake` where we can show more info
 
 ```
 
-C. We can observe that both `list.html` and `base.html` share lots of common html such as header and footer. Django allows us to create `base` template and extend other templates from it. Create a `base.html` in same folder with `list.html`. And put the `list.html` contents in it. Delete the part from `<div class="container">` until just before the `footer` and replace with
+C. `list.html`와 `base.html`파일을 보면 헤더와 푸터에 동일한 내용이 있는 것을 알 수있는데요. 장고는 `base`템플릿을 만들어 다른 템플릿에서도 활용될 수 있게 해준 답니다. `list.html`에 있는 폴더에 `base.html` 만들고요. `list.html`내용을 복사하고 수정할 거에요.`<div class="container">`부터 `footer` 전까지 내용을 삭제하고 아래 블록을 추가하세요.
 
 ```python
   {% block content %}
     {% endblock %}
 ```
 
-After replacing, your `base.html` will look like as follows :
+그러면 `base.html`템플릿이 아래와 같을 겁니다.
 
 ```html
 
@@ -608,7 +566,7 @@ After replacing, your `base.html` will look like as follows :
 
 ```
 
-Now we have to connect base template with list and detail template.
+이제 리스트 템플릿과 와 상세 페이지 템플릿이 서로 연결되게 해야합니다.
 
 ``` list.html ```
 
@@ -754,6 +712,6 @@ Now we have to connect base template with list and detail template.
 
 ```
 
-Start developement server go to the link : [http://127.0.0.1:8000](http://127.0.0.1:8000) to see the list template!
+서버를 실행하고 [http://127.0.0.1:8000](http://127.0.0.1:8000)로 가서 리스트 템플릿을 확인하세요!
 
-**Move to next part of [Demo](demo_part_2.md)**
+**다음 [Demo](demo_part_2.md)**

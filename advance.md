@@ -555,19 +555,19 @@ def cupcake_detail(request,pk):
 
 코멘트를 커밋하기 전에 테스트를 하고 그 다음에 머지 하세요.
 
-> Thankfully, Continuous Integration can save the day. Continuous Integration, often abbreviated to just CI, is the process of automatically building and running tests whenever a change is committed.
+> 고맙게도, 지속적인 통합(Continuous Integration)은 코드와 관련된 문제를 피할 수 있도록 도와줍니다. 이 지속적인 통합(Continuous Integration)은 종종 CI라고 축약해서 불리곤하는데요, CI는 커밋이 이루어질 때 자동으로 빌드하고 테스트를 실행하도록 하는 과정을 말합니다.
 
-We are going to use Travis-CI which is free for open-source projects. Signup for free account on https://travis-ci.org using your Github account. Sync your github repos and enable TRAVIS-CI for project.
+우리는 Travis-CI라는 오픈소스 프로젝트를 사용해 볼거에요! 지금 https://travis-ci.org에 접속하고 여러분의 Github 계정을 이용해서 가입하세요. 여러분의 Github 저장소를 연결하면 TRAVIS-CI를 사용할 수 있습니다.
 
 ![](travis_1.png)
 
-Create a file `.travis.yml` in project root directory. Before adding any contents to file. let's complete the signup process for https://coveralls.io. Once you signedup successfully, you can add Github repo.
+파일에 내용을 추가하기 전에 프로젝트의 root 디렉토리에 `.travis.yml`라는 이름의 파일을 새로 만드세요. 그럼 이제 https://coveralls.io에서 가입을 완료해볼까요? 성공적으로 가입을 완료하면 여러분의 Github 저장소를 추가할 수 있습니다.
 
->Coveralls is a web service to help you track your code coverage over time, and ensure that all your new code is fully covered.
+>Coveralls는 시간이 지남에 따라 변경되는 코드를 추적하고, 모든 새로운 코드가 완전히 반영되었는지 확인할 수 있도록 도와주는 웹 서비스입니다.
 
 ![](coveralls.png)
 
-Add following contents to your `.travis.yml` file.
+`.travis.yml` 파일을 열고 아래의 코드를 추가하세요.
 
 ```bash
 language: python
@@ -590,22 +590,22 @@ after_success:
 
 ```
 
-Make sure to add/change `branches` field. In our case, we are adding advance and rest-api branches only.
+`branches` 필드를 수정하는 것 잊지마세요! 우리는 advance와 rest-api라는 `brances`만 추가할 거예요.
 
-Let's add nice badges for showing status of build and coverage in our README. Add markup from Travis and Coveralls to your project's RADME.md. Here is one sample
+그럼 README에서 빌드와 coverage 상태를 볼 수 있는 멋진 배지를 추가해볼까요? 여러분의 프로젝트 README.md에 Travis와 Coveralls의 markup을 추가하세요. 아래의 예시가 있습니다.
 
 [![Build Status](https://travis-ci.org/DjangoGirlsSeoul/djangocupcakeshop.svg?branch=advance)](https://travis-ci.org/DjangoGirlsSeoul/djangocupcakeshop)
 [![Coverage Status](https://coveralls.io/repos/github/DjangoGirlsSeoul/djangocupcakeshop/badge.svg?branch=advance)](https://coveralls.io/github/DjangoGirlsSeoul/djangocupcakeshop?branch=advance)
 
-Now commit your changes and push to Github. It will automatically initiate a travis-cui build and coverage test. You can find similar reports as below
+그럼 변경된 사항들을 Github에 commit하고 push 하세요! 이제 자동으로 travis-ci 빌드와 coverage 테스트를 진행합니다. 여러분은 아래와 비슷한 보고서를 확인할 수 있습니다.
 
 ![](travis_ci_build.png)
 
 
 ![](coveralls_report.png)
 
-## 4. Change database to MySQL
-You can use other databases like Postgres or MySQL, below is the settings for MySQL.
+## 4. 데이터베이스(MySQL) 변경하기
+여러분은 Postgres나 MySQL과 같은 다른 데이터베이스를 사용할 수 있습니다. 아래의 코드를 참고하여 settings를 수정하고 MySQL을 사용해보아요!
 
 ```python
 DATABASES = {
@@ -620,7 +620,7 @@ DATABASES = {
 }
 
 ````
-You have to install `mysqlclient` to use it.
+여러분은 `mysqlclient`를 설치해야만 MySQL을 데이터베이스로 사용할 수 있으니 주의해주세요.
 
-## 5. Custom Admin
-You can cusotmize the Django admin.  Refer to [official tutorial](https://docs.djangoproject.com/en/1.10/intro/tutorial07/) guide for some examples.
+## 5. 관리자 페이지를 내 마음대로 변경하기
+여러분은 Django 관리자 페이지를 마음대로 변경할 수 있습니다! 자세한 내용은 Django 공식 튜토리얼을 참고하세요! 여러분을 도와줄 예시와 가이드가 준비되어있습니다. [official tutorial](https://docs.djangoproject.com/en/1.10/intro/tutorial07/)

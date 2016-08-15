@@ -527,6 +527,6 @@ application = StaticFilesHandler(get_wsgi_application())
 
 a. 가격 순으로 리스트 배열: 최저가격 `highest` 최고가격 `lowest` 순으로 리스트 배열하기
 
-> 도움 : `cupcakes/price/hightolow`처럼 url을 만들고 뷰 함수를 추가해야합니다. 데이터 베이스부터 데이터를 가져와 `string`을 int(정수)바꾸고 정렬해야합니다.  Get the data from Database, convert price `string` to int and sort using python. You can use the same template `list.html` for this homework.
-
+> 도움 : `cupcakes/price/hightolow`처럼 url을 만들고 뷰 함수를 추가해야합니다. 데이터 베이스부터 데이터를 가져와 `string`을 int(정수)바꾸고 정렬해야합니다. `list.html`템플릿을 수정하면 되겠죠.
+> 
 b. 평점 순으로 리스트 배열: 최고 평점 `highest` 순으로 리스트 배열하기

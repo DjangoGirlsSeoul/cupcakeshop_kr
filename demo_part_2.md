@@ -354,7 +354,7 @@ def cupcake_new(request):
             cake.createdAt = timezone.now()
             cake.writer = request.user
             cake.save()
-            return redirect('cupcake_detail',pk=cake.pk)
+            return redirect('menu:cupcake_detail',pk=cake.pk)
     else:
         form = CupcakeForm()
     context = {'form':form}

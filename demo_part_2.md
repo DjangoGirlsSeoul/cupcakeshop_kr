@@ -1,6 +1,6 @@
-# Demo Part 2
-## Step 9 [템플릿의 동적 데이터](http://tutorial.djangogirls.org/en/dynamic_data_in_templates/#dynamic-data-in-templates)
-> `orm` branch 관련 잇어요
+# Demo. Part 2
+## Step 9. [템플릿의 동적 데이터](http://tutorial.djangogirls.org/en/dynamic_data_in_templates/#dynamic-data-in-templates)
+> `orm` branch 관련 있어요
 
 a. queryset을 이용해서 데이터베이스에 동적데이터(cupcake 정보)를 가져옵니다! `menu/views.py`안에 `cupcake_list` function에 다음과 같은 코드를 추가합니다.
 
@@ -12,13 +12,12 @@ def cupcake_list(request):
     cakes = Cupcake.objects.all().order_by('-createdAt')
     context = {"cakes": cakes}
     return render(request,"menu/list.html",context)
-    
+
 ```
 
 위의 `Cupcake.objects.all().order_by('-createdAt')` 부분의 query는 데이터베이스에서 `createdAt`기준으로 내림차순으로 모든 컵케이크 정보들을 가져오는 거에요!
 
-> 이 코든는 `menu/list.html`라는 템플릿에서 로드 되고 context에 전달 될 거에요. `context`는 Python 객체들에 dictionary mapping되는 템플릿 변수 이름입니다.
-> That code loads the template called menu/list.html and passes it a context. The `context` is a dictionary mapping template variable names to Python objects.
+> 이 코드는 `menu/list.html`라는 템플릿에서 로드 되고 context에 전달 될 거에요. `context`는 Python 객체들에 dictionary mapping되는 템플릿 변수 이름입니다.
 
 만약 홈페이지에 방문하면 데이터베이스에서 가져온 데이터들이 템플릿에서 볼수 없을 거에요! 이제 템플릿에서 돌아가서 QuerySet를 보이게 해 볼까요?
 
@@ -76,8 +75,7 @@ b. 템플릿에 queryset으로 가져온 데이터를 추가하기 위해 Django
 ```
 개발 서버를 다시 시작하고 템플릿에 데이터베이스에서 가져온 컵케이크가 잘 보이는지 홈페이지에서 확인해 보세요! :)
 
-c. 일단 여기에 들어가 보면 한가지 문제가 있어요!. 순서를 매기는데 `오직` 별 한개 밖에 안보이는 거죠. Django Template에서는 Template 안에서 `range`같은 복잡한 파이썬 함수들의 사용을 허용하지 않아요. 그래서 우리는 rating count로 looping도 하고 별 갯수도 추가 하기 위해서 커스텀한  Django Template filter를 추가 할 거에요.
-c. We have one problem that we have to address here. As you can see that `only` one star appears for rating. Django Template doesn't allow usage of complex Python functions in template such as `range`. We have to make a custom Django Template filter for looping over rating count and add number of stars based on it. We are going to create a custom `Django Template Filter`. You can read more about it [here](https://docs.djangoproject.com/en/1.9/howto/custom-template-tags/).
+c. 일단 여기에 들어가 보면 한가지 문제가 있어요!. 순서를 매기는데 `오직` 별 한개 밖에 안보이는 거죠. Django Template에서는 Template 안에서 `range`같은 복잡한 파이썬 함수들의 사용을 허용하지 않아요. 그래서 우리는 rating count로 looping도 하고 별 갯수도 추가 하기 위해서 커스텀한  Django Template filter를 추가 할 거에요. [여기](https://docs.djangoproject.com/en/1.9/howto/custom-template-tags/)서 `Django Template Filter`에 관한 내용을 확인 할 수 있습니다.
 
 그래서 `models.py` and `views.py` 파일이 있는 폴더에 `templatetags` 폴더를 만들거에요. 그 디렉토리안에 `__init__.py`라는 빈 파일을 추가 해야 된 다는 것을 잊지 마세요!. 그리고 `templatetags` 폴더안에 `menu_extras.py` 라는 파일을 만들어 보아요.
 
@@ -92,7 +90,7 @@ menu/
         __init__.py
         menu_extras.py
     views.py
-    
+
 ```
 `menu_extras.py`안에 다음과 같은 내용을 추가합니다.
 
@@ -108,8 +106,6 @@ def get_range(value):
      Usage (in template):
     """
     return range(int(value))
-
-
 ```
 `list.html`에는 `{% load staticfiles %}`의 뒷 부분에 다음과 같이 추가 하세요!
 
@@ -134,7 +130,6 @@ def get_range(value):
 
 개발 서버를 다시 시작하고 홈페이지에 들어가 데이터베이스에서 가져온 컵케이크들이 잘 보이는지 확인해 보세요! :)
 
-
 ## Step 10 프로그램 어플리케이션 확장하기
 > `extend-app` branch와 관련 있어요!
 
@@ -146,9 +141,9 @@ a. 지금까지 `list.html` 템플릿을 적절하게 바꾸는 것을 했는데
 url(r'^cupcake/(?P<pk>\d+)/$',views.cupcake_detail,name="cupcake_detail")
 ```
 
-This part `^cupcake/(?P<pk>\d+)/$` looks scary, but no worries - You can read explanation about it here [[Eng](http://tutorial.djangogirls.org/en/extend_your_application/#create-a-url-to-a-posts-detail), [Kor](https://djangogirlsseoul.gitbooks.io/tutorial/content/extend_your_application/)].
+`^cupcake/(?P<pk>\d+)/$`부분이 어렵게 보이더라도 걱정하지 마세요. 아래 링크에서 자세하게 설명했으니 참고하세요. [[Eng](http://tutorial.djangogirls.org/en/extend_your_application/#create-a-url-to-a-posts-detail), [Kor](https://djangogirlsseoul.gitbooks.io/tutorial/content/extend_your_application/)].
 
-Then add a function `cupcake_detail` in `menu/views.py` to render the template we created earlier. Any url like `cupcake/1` will be sent to view function `cupcake_detail`. 
+`menu/views.py`에 새로운 함수 `cupcake_detail`를 추가해서 앞에서 만든 `detail` 템플릿을 보여주게 만들 거에요. `cupcake_detail`에서 `cupcake/1`처럼 각 페이지가 숫자로 보이도록 만들 겁니다.
 
 ```python
 from django.shortcuts import render, get_object_or_404
@@ -160,16 +155,16 @@ def cupcake_detail(request,pk):
 
 ```
 
-b. There are two more things we have to do before we can see the cupcake detail page. Firstly, add a link to `list.html` template which can take us to detail page. Replace existing `<a href="#"...` with following code.
+b. 컵케이크 상세 페이지를 보여주기 전에 두 가지 더 해야할 일이 있어요. 먼저  `list.html`템플릿에 해당 링크를 연결해야하는데요. `<a href="#"...` 부분을 아래 코드로 수정해주세요.
 
 ```html
 <a href="{% url 'cupcake_detail' pk=cake.pk %}" class="btn btn-default btn-lg btn-block">View</a>
 
 ```
 
-The mysterious `{% url 'cupcake_detail' pk=cake.pk %}` will take us to the view function `cupcake_detail` which in turn will show us the detail page! 
+`{% url 'cupcake_detail' pk=cake.pk %}`는  `cupcake_detail` 뷰함수를 가져와 각 상세 페이지를 보여줄 거에요!
 
-Seondly, we are going to add template tags and custom filter in `detail.html` for showing the cupcake from database.
+두 번째로 `detail.html`에 컵케이크 데이터와 관련된 템플릿 태그와 필터를 만들어 볼 거에요.
 
 ```html
 {% extends 'menu/base.html' %}
@@ -234,19 +229,19 @@ Seondly, we are going to add template tags and custom filter in `detail.html` fo
 {% endblock %}
 
 ```
-Start development server again, and click on `view` button in home page to see detail page. Here is one example below 
+개발서버를 재실행하고, 홈페이지에 있는 `view`버튼을 눌러 상세 페이지로 이동해보면 아래처럼 에러가 보일거에요.
 
 ![](extend_detail.png)
 
 a. menu에 템플릿 링크 만들기 그리고 menu 상세 페이지에 뷰 추가하기
 
 
-## Step 11 (Django Forms 폼)
+## Step. 11 (Django Forms 폼)
 > Relevant branch `forms`
 
-The final thing we want to do on our website is create a nice way to add cupcakes by registered users. Django's admin is cool, but it is rather hard to customize and make pretty. With forms we will have absolute power over our interface - we can do almost anything we can imagine!
+이제 마지막으로 해야할 일은 등록한 유저가 새로운 컵케이크를 등록할 수 있게 만드는 겁니다. 장고 어드민이 좋지만, 좀커스터마이징 하기도 어렵고 보기에도 예쁘지 않죠. 폼을 이용해 훨씬 더 멋진 인터페이스를 만들 수 있을 거에요. 여러분이 생각하는 거의 모든 것을 해볼 수 있답니다!
 
-a. Create a new file `forms.py` in menu directory. We are going to use `ModelForm` which allows us to create a form from already created model. Add following code to your `forms.py`
+a. `menu`디렉터리 안에 `forms.py`이라는 새 파일을 만드세요. 이미 생성된 모델을 가져와 `ModelForm`에서 활용할 거에요. `forms.py`안에 아래 내용을 추가해주세요.
 
 ```python
 
@@ -261,26 +256,26 @@ class CupcakeForm(forms.ModelForm):
         fields = ('name','rating','price','image')
 
 ```
->Note that we have excluded couple of fields like `createdAt` and `writer`. Actually we can set them up while saving the form. We will get back it shortly.
+>`createdAt`와 `writer`은 폼에 활용하지 않을 겁니다.
 
-Let's add a new url for our form in `menu/urls.py`. Add below code after `    url(r'^cupcake/(?P<pk>\d+)/$',views.cupcake_detail,name="cupcake_detail"),
-`
+`menu/urls.py`에 새 url을 추가합시다. `url(r'^cupcake/(?P<pk>\d+)/$',views.cupcake_detail,name="cupcake_detail"),
+`다음에 아래 코드를 붙여 넣으세요.
 
 ```python
     url(r'^cupcake/new/$', views.cupcake_new, name='cupcake_new'),
 
 ```
 
-b. Now we have the form and added it to the url. All we need to do is to create a template and add function in view. Start by adding a `+` navigation button to your `base.html` template. Add following code just before `<li class="dropdown">`.
+b. 이제 폼이 만들어 졌으니, url로 전달합시다. 이제 해야할 일은 템플릿을 생성하고 뷰와 연결시키는 것입니다. `base.html`에 있는 네비케이션 버튼 `+`누르면 내용을 작성할 수 있게 할 거에요. 전에 아래 내용을 붙여서 넣으세요. `<li class="dropdown">`.
 
 ```html
     {% if user.is_authenticated %}
       <li><a href="{% url 'cupcake_new' %}"><span class="glyphicon glyphicon-plus"></span></a></li>
      {% endif %}
 ```
-> This `user.is_authenticated` will cause the link to only be sent to the browser if the user requesting the page is logged in. This doesn't protect the creation of new posts completely, but it's a good first step.
+>  `user.is_authenticated`은 유저가 로그인한 것을 말합니다. 작성한 내용을 보호하는 기능이 아닙니다.
 
-Create a new html file `cupcake_new.html` in `menu/templates/menu` directory. Add following content to it. 
+`menu/templates/menu`디렉터리 안에 `cupcake_new.html`이라는 파일을 추가하세요. 그리고 그 안에 아래 내용을 붙여 넣으세요.
 
 `cupcake_new.html`
 ```html
@@ -330,9 +325,9 @@ Create a new html file `cupcake_new.html` in `menu/templates/menu` directory. Ad
 {% endblock %}
 
 ```
-There is a simple way to add form in template too. Just add ` {{ form.as_p }}` in between `<form></form>`. However, we can also add manually (as above template) if we like.
+템플릿안에 폼을 추가하는 방법은 아주 간단합니다. 모든 폼을 한번에 반영하고 싶다면 `<form></form>` `{{ form.as_p }}`를 넣으세요.
 
-c. If you try to start development server, it will give an error. That's because we haven't added a view yet. Open `menu/views.py` file and add following lines with rest of the `from` rows.
+c. 개발 서버를 실행하면 에러가 보일 거에요. 아직 뷰에 폼 내용을 추가하지 않았기 때문이에요. Open `menu/views.py` 파일을 열고 `from` 줄부터 아래 내용을 추가하세요.
 
 ```python
 from django.shortcuts import redirect
@@ -342,7 +337,7 @@ from django.contrib.auth.decorators import login_required
 
 ```
 
-and view function.
+그리고 아래와 같이 함수를 만들어 주세요.
 
 ```python
 @login_required
@@ -361,22 +356,22 @@ def cupcake_new(request):
     return render(request,"menu/cupcake_new.html",context)
 ```
 
-> `@login_required`will make sure that only logged in user can save the new cupcake. 
+> `@login_required`는 로그인을 한 유저만 새로운 컵케익 내용을 작성할 수 잇게 만드는 것입니다.
 
-Let's see if it works. Go to the page [http://127.0.0.1:8000/cupcake/new/](http://127.0.0.1:8000/cupcake/new/), add name,rating, price and image, submit it... and voilà! The new cupcake is added and we are redirected to cupcake_detail page!
+이제 잘 작동하는지 확인해봅시다. [http://127.0.0.1:8000/cupcake/new/](http://127.0.0.1:8000/cupcake/new/) 페이지로 이동해서, 이름, 평가, 가격, 이미지를 작성하고 제출하세요! 새로운 컵케익이 추가되었고 `cupcake_detail`페이지로 이동하는 것을 볼 수 있어요!
 
 ![](forms_1.png)
 
-Congrats :) We are almost done with development of our site! 
+잘했습니다! :) 이제 사이트 배포만 하면 됩니다!
 
-Finally, it's time to have cupcake. There is one more thing that we have to do. So hang in there...
-    
-## Step 12 Deploy your site on PythonAnywhere [배포하기](http://tutorial.djangogirls.org/ko/deploy/#github에서-pythonanywhere로-코드-가져오기)
+이제 해야할 것이 하나 더 남았습니다. 다음 단계로 넘어갑시다.
+
+## Step 12. PythonAnywhere [배포하기](http://tutorial.djangogirls.org/ko/deploy/#github에서-pythonanywhere로-코드-가져오기)
 
 > Relevant branch `deploy`
 
-Good work, if you have reached this far! Before deploying our site on PythonAnywhere. We have to commit all the changes and push them to `Github`.
-Make sure that your `.gitignore` file has following content.
+잘했어요! 이제 거의 다 끝나갑니다! PythonAnywhere로 배포 전에 해야할 게 있습니다. `Github`에 변경된 내용을 모두 커밋하고 푸쉬하세요.
+`.gitignore`파일 내용이 아래와 같아야 합니다.
 
 ```bash
 *.pyc
@@ -387,19 +382,19 @@ db.sqlite3
 .DS_Store
 media/
 ```
-### Security for Production 
-> Follow this [link](https://github.com/espern/espern.github.io-source/blob/master/content/home/en-securing-your-django-settings-on-github.md) 
+### 배포시 보안 확인하기
+> Follow this [link](https://github.com/espern/espern.github.io-source/blob/master/content/home/en-securing-your-django-settings-on-github.md)
 
-#### Django secret key
-Open your `settings.py` file. You will find `secret key`
+#### Django 비밀키
+`settings.py` 파일을 열면 비밀키(`secret key`)를 확인할 수 있어요.
 
 ```python
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '(+73cf=j*8!=r$#2à^@ibgpw8yn9pm#wa42bk&amp;v(@*%m7nx1sg'
 ```
-We are hosting our website on Github. So everyone can see the secret key. One way to avoid this is by making two separate `settings.py` file for development and production server. But it will really be a pain to maintain both. 
+깃헙에 소스를 저장하기 때문에 모든 사람들이 비밀키를 확인할 수 있어요. 다른 사람들이 비밀키를 알지 못하게 하려면 개발과 배포 서버에 `settings.py`를 따로 적용하면 됩니다. 비밀키 설정은 조금 까다로워요.
 
-We will use `Environment Variables` on PythonAnywhere to store our `database password` and `SECRET_KEY`.  Before doing this, we have to change our `settings.py` file to replace `secret_key` with some dummy value. We will also make sure that `DEBUG=False` for production version. Replace the `DEBUG=True`, `SECRET_KEY` and `ALLOWED_HOSTS` code with following.
+ PythonAnywhere에 환경변수(`Environment Variables`)를 사용해 `database password`와 `SECRET_KEY`를 설정할 겁니다. 이전에  `settings.py`파일에 있는 `secret_key`를 임의로 변경해주세요. 배포 버전에서 `DEBUG=False`를 적용할 거고요. 아래처럼 `DEBUG=True`, `SECRET_KEY`, `ALLOWED_HOSTS` 내용을 수정해주세요.
 
 ```python
 DEBUG = os.getenv('DJANGO_DEBUG') != 'FALSE'
@@ -416,24 +411,23 @@ if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = ['djangocupcakeshop.pythonanywhere.com']
-    
+
 ```
 
-`os.getenv('DJANGO_DEBUG')` is an environment variable which we will add on PythonAnywhere later. 
+`os.getenv('DJANGO_DEBUG')`은  PythonAnywhere에서 사용할 환경 변수에요.
 
-> We are making sure that our secret key is not Github! We are also making `DEBUG=False` for your production site.PythonAnywhere related code is in the next section.
+> Github에 실제 비밀키가 배포되어서는 안됩니다. PythonAnywhere에서 `DEBUG=False`이라고 설정할 거에요.
 
+#### Github으로 배포하기
 
-#### Publish on Github
-
-Do `git status` to check the current status. We will add all the files and save our changes
+`git status`명령어를 실행해 현재 상태를 확인하세요. 모든 변경된 코드를 저장하려면 아래와 같이 입력하세요.
 
 ```bash
 $ git add --all
 $ git commit -m "finished tutorial until Step 10"
 ```
 
-It's time to publish your `awesome` work to Github. 
+이제까지 한 모든 작업 내용을 Github에 올리세요.
 
 ```bash
 $ git push -u origin master
@@ -441,20 +435,20 @@ $ git push -u origin master
 
 #### PythonAnywhere
 
-PythonAnywhere has free tier which can you use to deploy your site. Go to [PythonAnywhere.com](https://www.pythonanywhere.com) and log in.
-> If you haven't signed up then sign up for a free "Beginner" account on PythonAnywhere.
+PythonAnywhere은 무료계정이 있어 배포시 이를 사용하실 수 있습니다. [PythonAnywhere.com](https://www.pythonanywhere.com)으로 접속해 로그인하세요.
+> "Beginner" 계정으로 가입하시면 무료로 사용하실 수 있습니다.
 
-When you've logged in to PythonAnywhere, you'll be taken to your dashboard or "Consoles" page. Choose the option to start a "Bash" console -- that's the PythonAnywhere version of a console, just like the one on your computer.
+PythonAnywhere로 가시면, 대시보드 또는 "Consoles"페이지로 이동될 겁니다. "Bash" 콘솔을 클릭하세요. -- `bash`는 로컬 컴퓨터에 있는 콘솔과 같은 콘솔이랍니다
 
-We will fetch our code from Github to Pythonanywhere using `git clone`.
+`git clone` 명령어를 입력해 Github에 있는 모든 PythonAnywhere로 이동하게 만드세요.
 
-```bash 
+```bash
 $ git clone https://github.com/<your_github_user_name>/djangocupcakeshop.git
 ```
 
-> Don't forget to replace `<your_github_user_name>` with your github username. Make sure that you are not using `DjangoGirlsSeoul` username :)
+> `<your_github_user_name>`은 github유저 네임입니다. `DjangoGirlsSeoul`이 아니에요 :)
 
-Now its time to setup virtual environment on PythonAnywhere.
+PythonAnywhere에서 환경 변수를 적용할 차례입니다.
 
 ```bash
 $ cd djangocupcakeshop
@@ -463,40 +457,41 @@ $ source myvenv/bin/activate
 (myvenv) $ pip install -r requirements.txt
 ```
 
-One things to note that we put `db.sqlite3` file in `.gitignore`. The main reason of it was to avoid sharing our database on github. We have to create a new database on PythonAnywhere and setup a superuser.
+`.gitignore`폴더에 `db.sqlite3`파일이 있습니다. Github에서는 데이터베이스 내용이 무시되어 저장될 거에요. 그래서 PythonAnywhere에서 새로운 데이터베이스를 생성하고 `superuser`도 다시 만들어야 합니다
 
-```bash 
+```bash
 (myvenv) $ python manage.py migrate
 (myvenv) $ python manage.py createsuperuser
 ```
 
-Since we are deplpoying production version of our site, we have to do one more step. Run the following command in console 
+이제 하나 더 해야할 일이 남았습니다. 콘솔로 가서 아래 명령어를 실행해주세요.
 
 ```bash
 (myvenv) $ python manage.py collectstatic
 ```
 
-Type `yes` when prompted. Django will move all static files (images,css, javascript) to a single directory (the STATIC_ROOT).
+실행되면 `yes`라고 입력하세요. 장고는 모든 동적 파일을 (images,css, javascript) `the STATIC_ROOT`디렉토리로 옮길 겁니다.
 
-That's all for the console commands -:)
-Click back to the PythonAnywhere dashboard by clicking on its logo, and go click on the Web tab. Finally, hit Add a new web app.
+이제 콘솔에서 해야할 명령어는 모두 끝났어요.
 
-After confirming your domain name, choose manual configuration (not the "Django" option) in the dialog. Next choose Python 3.5, and click Next to finish the wizard.
+로고를 클릭해 PythonAnywhere대시보드로 돌아가고, Web 탭을 클릭하세요. 그리고 다시 new web app을 클릭하세요.
+
+도메인 이름이 확정되면, manual configuration ("Django"옵션이 아닙니다)을 선택하세요. Python 3.5을 클릭하고 종료하세요.
 
 ![](deploy_create_app_1.png)
 
 
-#### Setting the virtualenv
+#### virtualenv 설정
 
-In the "Virtualenv" section, click the red text that says "Enter the path to a virtualenv", and enter: `/home/<your-PythonAnywhere-username>/djangocupcakeshop/myvenv/`. Click the blue box with the check mark to save the path before moving on.
+"Virtualenv" 단계에서,"Enter the path to a virtualenv"를 클릭하고 엔터를 누르세요.  `/home/<your-PythonAnywhere-username>/djangocupcakeshop/myvenv/` 경로를 작성하고 파란색 클릭 버튼을 누르세요.
 
 ![](deploy_venv_2.png)
 
-Also Add the path to your source code `/home/<your-PythonAnywhere-username>/djangocupcakeshop`.
+`/home/<your-PythonAnywhere-username>/djangocupcakeshop` 경로를 작성하고 파란색 클릭 버튼을 누르세요.
 
 
-#### Configuring the WSGI file
-Click on `wsgi configuration file` link and paste the following contents. Replace path with your project path.
+#### WSGI file 설정
+`wsgi configuration file` 링크를 클릭하고 아래 내용을 붙여 넣으세요.
 
 `wsgi`
 
@@ -516,9 +511,9 @@ from django.core.wsgi import get_wsgi_application
 from django.contrib.staticfiles.handlers import StaticFilesHandler
 application = StaticFilesHandler(get_wsgi_application())
 ```
-> Replace `MY_SECRET_KEY` with your secret key!
+> `MY_SECRET_KEY`에 실제 비밀키를 변경해주세요!
 
-We're all done! Hit the big green Reload button and you'll be able to go view your application. You'll find a link to it at the top of the page.
+잘했습니다! 재실행 버튼을 누ㄹ면 어플리케이션으로 이동할 거에요. 페이지 맨 위쪽에 링크가 있어요.
 
 ![](deploy_refresh_3.png)
 
@@ -528,12 +523,10 @@ We're all done! Hit the big green Reload button and you'll be able to go view yo
 	d. web app으로 DjangoCupcakeshop 배포하기 - 가상환경(virtualenv) 설정하기 그리고 WSGI 파일 설정하기
 
 
-## Step 13 Homework (숙제)
+## Step 13. Homework (숙제)
 
-a. Sort cupcakes by `highest` and `lowest` price
+a. 가격 순으로 리스트 배열: 최저가격 `highest` 최고가격 `lowest` 순으로 리스트 배열하기
 
-> Hint : Make a url like `cupcakes/price/hightolow`, add a corresponding view function. Get the data from Database, convert price `string` to int and sort using python. You can use the same template `list.html` for this homework. 
+> 도움 : `cupcakes/price/hightolow`처럼 url을 만들고 뷰 함수를 추가해야합니다. 데이터 베이스부터 데이터를 Get the data from Database, convert price `string` to int and sort using python. You can use the same template `list.html` for this homework.
 
-b. Sort cupcakes by `highest` rating
-
-
+b. 평점 순으로 리스트 배열: 최고 평점 `highest` 순으로 리스트 배열하기

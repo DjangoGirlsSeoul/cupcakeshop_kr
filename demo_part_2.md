@@ -508,7 +508,7 @@ path = '/home/<your_pythonanywhere_username>/djangocupcakeshop'  # use your own 
 if path not in sys.path:
     sys.path.append(path)
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'djanocupcakeshop.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'djangocupcakeshop.settings'
 os.environ['DEBUG'] = 'FALSE'
 os.environ['SECRET_KEY'] = 'MY_SECRET_KEY'
 
